@@ -1,0 +1,35 @@
+import asyncio
+
+from temporalio.client import Client
+{{if .ChildWorkflow }}
+from workflows import {{ .Workflow }}, {{ .ChildWorkflow }}
+{{ else }}
+from workflows import {{ .Workflow }}
+{{ end }}
+async def main():
+    client = await Client.connect("localhost:7233")
+    {{ if .ChildWorkflow}}
+    handle = await client.execute_workflow(
+        {{ .Workflow }}.run, "Child Workflow: {{ .ChildWorkflow }}", id="my-workflow-id", task_queue="my-task-queue"
+    )
+    {{ else }}
+    handle = await client.execute_workflow(
+        {{ .Workflow }}.run, "Basic Workflow", id="my-workflow-id", task_queue="my-task-queue"
+    )
+    {{ end }}
+
+    {{- range $q := .Signal }}
+    await handle.signal({{ $.Workflow }}.{{ $q }}, "argument_{{ $q }}")
+    {{- end }}
+    {{- range $q := .Query }}
+    result_{{ $q }} = await handle.query({{ $.Workflow }}.{{ $q }})
+    print(f"Query result: {result_{{ $q }}}")
+    {{- end }}
+
+
+    print(f"Result: {handle}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+

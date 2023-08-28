@@ -1,0 +1,58 @@
+from temporalio import workflow
+from datetime import timedelta
+
+with workflow.unsafe.imports_passed_through():
+    {{ if .ChildWorkflow}}
+    from activities import YourParams
+    {{ else }}
+    from activities import YourParams, say_hello
+    {{ end }}
+
+@workflow.defn
+class {{ .Workflow }}:
+    @workflow.run
+    async def run(self, name: str) -> str:
+        {{ if .ChildWorkflow }}
+        return await workflow.execute_child_workflow(
+            {{ .ChildWorkflow }}.run,
+            YourParams("Hello", name),
+            id="child-workflow-id",
+            schedule_to_close_timeout=timedelta(seconds=5),
+        )
+        {{ else if .LocalActivity }}
+        return await workflow.execute_local_activity(
+            say_hello,
+            YourParams("Hello", name),
+            schedule_to_close_timeout=timedelta(seconds=5),
+        )
+        {{ else }}
+        return await workflow.execute_activity(
+            say_hello,
+            YourParams("Hello", name),
+            schedule_to_close_timeout=timedelta(seconds=5),
+        )
+        {{- end }}
+    {{- range $q := .Signal }}
+    @workflow.signal
+    async def {{ $q }}(self):
+        pass
+    {{- end }}
+
+    {{- range $q := .Query }}
+    @workflow.query
+    async def {{ $q }}(self):
+        pass
+    {{- end }}
+
+
+{{ if .ChildWorkflow }}
+@workflow.defn
+class {{ .ChildWorkflow }}:
+    @workflow.run
+    async def run(self, name: str) -> str:
+        return await workflow.execute_activity(
+            say_hello,
+            YourParams("Hello", name),
+            schedule_to_close_timeout=timedelta(seconds=5),
+        )
+{{ end }}
