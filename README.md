@@ -15,7 +15,7 @@ This CLI tool generates a Temporal Python project with a predefined structure. I
 To install the CLI tool, you can build it from source:
 
 ```bash
-go build -o temporal-py
+go build -o time-builder
 ```
 
 ## Usage
@@ -25,32 +25,32 @@ go build -o temporal-py
 Generate a basic Python project for Temporal.
 
 ```bash
-go run main.go generate
+time-builder generate
 ```
 
 Generates a Temporal Python project which connects to the Cloud.
 
 ```bash
-go run main.go generate --cloud
+time-builder generate --cloud
 ```
 
 Generates a Temporal Python project with 3 Signals and 2 Queries.
 
 ```bash
-go run main.go generate --signal-count 3 --query-count 2
+time-builder generate --signal-count 3 --query-count 2
 ```
 
 Generates a Temporal Python project with a child workflow with 2 Signals and 4 Queries.
 
 
 ```bash
-go run main.go generate --child-workflow ChildWorkflowName  --signal Hello --signal-count 2 --query Bye --query-count 4
+time-builder generate --child-workflow ChildWorkflowName  --signal Hello --signal-count 2 --query Bye --query-count 4
 ```
 
 Generates a Temporal Python project with a child workflow and 3 Signals and 2 Queries.
 
 ```bash
-go run main.go generate --child-workflow ChildWorkflowName --signal-count 3 --query-count 2
+time-builder generate --child-workflow ChildWorkflowName --signal-count 3 --query-count 2
 ```
 
 
@@ -76,7 +76,7 @@ useCloud: false
 If a configuration file is present and the `--config` flag is set, the CLI tool will use the settings from the file, unless overridden by command-line flags.
 
 ```bash
-go run main.go generate --config ./config.yaml
+time-builder generate --config ./config.yaml
 ```
 
 ## Contributing
