@@ -25,34 +25,33 @@ go build -o time-builder
 Generate a basic Python project for Temporal.
 
 ```bash
-time-builder generate
+./time-builder generate
 ```
 
 Generates a Temporal Python project which connects to the Cloud.
 
 ```bash
-time-builder generate --cloud
+./time-builder generate --cloud
 ```
 
 Generates a Temporal Python project with 3 Signals and 2 Queries.
 
 ```bash
-time-builder generate --signal-count 3 --query-count 2
+./time-builder generate --signal-count 3 --query-count 2
 ```
 
 Generates a Temporal Python project with a child workflow with 2 Signals and 4 Queries.
 
 
 ```bash
-time-builder generate --child-workflow ChildWorkflowName  --signal Hello --signal-count 2 --query Bye --query-count 4
+./time-builder generate --child-workflow ChildWorkflowName  --signal Hello --signal-count 2 --query Bye --query-count 4
 ```
 
 Generates a Temporal Python project with a child workflow and 3 Signals and 2 Queries.
 
 ```bash
-time-builder generate --child-workflow ChildWorkflowName --signal-count 3 --query-count 2
+./time-builder generate --child-workflow ChildWorkflowName --signal-count 3 --query-count 2
 ```
-
 
 ### Using a Configuration File
 
@@ -76,7 +75,7 @@ useCloud: false
 If a configuration file is present and the `--config` flag is set, the CLI tool will use the settings from the file, unless overridden by command-line flags.
 
 ```bash
-time-builder generate --config ./config.yaml
+./time-builder generate --config ./config.yaml
 ```
 
 ## Contributing
