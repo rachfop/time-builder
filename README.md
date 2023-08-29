@@ -44,6 +44,11 @@
 
 The "time-builder" project is a command-line tool that generates Python code for Temporal Workflows. It allows users to provide input flags such as workflow name, child workflow name, and activity name, and generates corresponding Python code files based on these inputs. The generated code includes functionality to connect to a Temporal server, execute workflows, signal workflows with arguments, query workflows, and print the results. Overall, the project aims to simplify the process of generating Python code for Temporal Workflows, saving time and effort for developers.
 
+**About**
+
+Time builder is a play on the name Temporal, meaning time, and the ability to build Temporal Workflows from the command line.
+Using Go's templates allows for a modular approach to writing and maintaining boilerplate Temporal code, all you need to do is add your business logic.
+
 ---
 
 ## ⚙️ Features
@@ -54,8 +59,7 @@ The "time-builder" project is a command-line tool that generates Python code for
 | **📖 Documentation**   | The codebase contains documentation in the form of code comments, README files, and configuration files. The `README.template` file provides an overview and instructions for setting up the project. The Python template files also include comments explaining the purpose and usage of the code. While the documentation is present, it could be improved by adding more detailed explanations and examples to make it more comprehensive and user-friendly.   |
 | **🔗 Dependencies**    | The codebase has external dependencies specified in the `go.mod` file. These dependencies include packages related to configuration parsing, file system operations, flag parsing, and environment variable handling. The `cmd` package imports the Cobra library for command-line interface functionality. The Python code generation templates rely on the Temporal.io workflow engine, which is being used to generate Python code for Temporal workflows. Overall, the codebase relies on these external libraries and systems to provide additional functionality and support for the required features.    |
 | **🧩 Modularity**      | The codebase demonstrates good modularity by organizing different functionalities into separate files. Each template file in the `python_templates` directory serves a specific purpose, such as defining workflows, activities, and configuration files. The `cmd` package separates the command-line tool functionality into two files: `generate.go` and `root.go`. This modular structure allows for easy understanding, maintenance, and extension of the codebase.   |
-| **✔️ Testing**          | The codebase does not include explicit testing files or tests as part of the repository. This could be a potential area for improvement, as proper testing is crucial to ensure the reliability and stability of the code. Implementing testing strategies and tools such as unit tests, integration tests, and end-to-end tests would greatly enhance the overall quality of the codebase.   |
-| **⚡️ Performance**      | The performance of the codebase is subjective and dependent on the usage of the generated Python code rather than the codebase itself. However, the codebase itself does not contain any obvious performance bottlenecks or inefficient operations. It leverages the Temporal.io
+
 
 ---
 ## 🚀 Getting Started
@@ -74,14 +78,13 @@ Change to the project directory:
 cd time-builder`
 ```
 
----
-
-
 To install the CLI tool, you can build it from source:
 
 ```bash
 go build -o time-builder
 ```
+
+---
 
 ### 🎮 Using time-builder
 
@@ -204,12 +207,6 @@ repo
 | [.env.template](https://github.com/rachfop/time-builder/blob/main/python_templates/.env.template)                 | The code snippet sets configuration variables for connecting to Temporal server using mutual TLS authentication. It specifies the path to TLS certificate and key files, Temporal server URL, and the default namespace.                                                                     |
 
 </details>
-
----
-
----
-
-
 
 ---
 
